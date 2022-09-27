@@ -8,20 +8,21 @@ $filtered = array(
   'c'=>mysql_real_escape_string($link, $_POST['c'])
 );
 
-$sql="
-  INSERT INTO gradeinfo
-  (name, python, java, c)
-  VALUES(
-    '{$filtered['name']}',
-    '{$filtered['python']}',
-    '{$filtered['java']}',
-    '{$filtered['c']}',
-  )
+$sql = "
+  UPDATE gradeinfo
+  SET
+  name='{$filtered['name']}',
+  python='{$filtered['python']}',
+  java='{$filtered['java']}',
+  c='{$filtered['c']}',
+  WHERE
+  id='{$filtered['id']}';
 ";
 
-$result = mysql_query($link, $sql);
-if($result===false){
-  echo '저장하는 과정에서 문제가 생겼습니다';
+$result = mysqli_query($link, $sql);
+
+if(result===false){
+  echo "저장하는 과정에서 문제가 생겼습니다.";
 }else{
   header('Location: ../read.php');
 }
